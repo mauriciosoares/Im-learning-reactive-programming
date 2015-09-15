@@ -4,7 +4,7 @@ My name is [Mauricio](http://twitter.com/omauriciosoares), and by the day this r
 
 Yeah, that's sad, but it's true... Nobody was born knowing everything, and the idea of this repo is to share everything I learn as I'm developing RP code...
 
-I'll use the Javascript Reactive Extensions library for this study. Javascript because is my strongest programming language, and Reactive Extensions because it seems to be the most popular RP library until now.
+I'll use the [Javascript ReactiveX library](https://github.com/Reactive-Extensions/RxJS) for this study. Javascript because is my strongest programming language, and [ReactiveX](http://reactivex.io/) because it seems to be the most popular RP library until now.
 
 In the `examples` dir you'll find all the code I'm writting about RP, and for beginner RP developers, I'll keep everything as documented and well explained as I can.
 
