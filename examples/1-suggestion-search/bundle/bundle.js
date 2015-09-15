@@ -16,18 +16,55 @@ var API_URL = 'https://api.foursquare.com/v2/venues/suggestCompletion?intent=glo
 
 var input = document.querySelector('#search');
 
+// we created an observer of the DOM event `keyup` from the
+// #search element
+// Everytime I typesomething, this stream is triggered if
+// someone has subscribed to it.
 var inputStream = _rx2['default'].Observable.fromEvent(input, 'keyup');
 
-var valueStream = inputStream.throttle(250).map(function (event) {
-  return event.target.value;
-}).filter(function (text) {
-  return text.length >= 3;
-}).distinctUntilChanged();
+// Here I'm creating another stream of the dom event `keyup`,
+// and I can filter the value a little bit, to improve
+// the UX of the app
+var valueStream = inputStream
 
-var ajaxStream = valueStream.flatMapLatest(searchFoursquare).subscribe(function (result) {
+// only retrieve values after 250 of throttle
+// that means that the event won't fire if I keep
+// typing really fast
+.throttle(250)
+
+// return only the value of the target...
+.map(function (event) {
+  return event.target.value;
+})
+
+// filter it to only trigger when there's 3 or more
+// characters in the value
+.filter(function (text) {
+  return text.length >= 3;
+})
+
+// this will trigger whenever the value is different from
+// the previous one
+// ex: If I clik in the arrow button is still a keyup event,
+// but the value has not changed.
+.distinctUntilChanged();
+
+// Here I create the stream that actually fetches the foursquare API
+var ajaxStream = valueStream
+
+// flatMapLatest guarantees that only the latest ajax
+// response will be triggered in the callback.
+// the searchFoursquare function is in the last lines of code.
+.flatMapLatest(searchFoursquare)
+
+// here I subscribe to all the streams that I created
+// previously. Without this line no code would actually run.
+.subscribe(function (result) {
   console.log(result.response);
 });
 
+// Here I create a function that returns a stream of
+// a promise from the jQuery ajax call.
 function searchFoursquare(term) {
   var promise = _jquery2['default'].ajax({
     url: API_URL + '&query=' + term
