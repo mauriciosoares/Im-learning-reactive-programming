@@ -1,6 +1,6 @@
 # I'm Learning Reactive Programming
 
-My name is Mauricio, and by the day this repository was created, I was a crap reactive programming developer!
+My name is [Mauricio](http://twitter.com/omauriciosoares), and by the day this repository was created, I was a crap reactive programming developer!
 
 Yeah, that's sad, but it's true... Nobody was born knowing everything, and the idea of this repo is to share everything I learn as I'm developing RP code...
 
