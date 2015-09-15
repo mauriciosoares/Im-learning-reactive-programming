@@ -58,3 +58,16 @@ function searchFoursquare(term) {
 
   return Rx.Observable.fromPromise(promise);
 }
+
+/**
+ * Docs and examples:
+ * Throttle:
+ *   https://github.com/Reactive-Extensions/RxJS/blob/master/doc/api/core/operators/throttle.md
+ *
+ * distinctUntilChanged:
+ *   https://github.com/Reactive-Extensions/RxJS/blob/master/doc/api/core/operators/distinctuntilchanged.md
+ *   http://rxmarbles.com/#distinctUntilChanged
+ *
+ * flatMapLatest:
+ *   https://github.com/Reactive-Extensions/RxJS/blob/master/doc/api/core/operators/flatmaplatest.md
+ */
