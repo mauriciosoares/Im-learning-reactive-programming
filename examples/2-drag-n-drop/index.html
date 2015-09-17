@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+  <style>
+  	body {
+  		margin: 0;
+  		padding: 0;
+  	}
+
+	#drag {
+		width: 200px;
+		height: 200px;
+		border: 1px solid black;
+		background-color: yellow;
+		position: absolute;
+		transition: margin .2s, box-shadow .2s;
+	}
+
+	#drag:active {
+		margin-top: -5px;
+		margin-left: -5px;
+		box-shadow: 5px 5px 10px black;
+	}
+  </style>
+</head>
+<body>
+  <div id="drag"></div>
+  <script src="bundle/bundle.js"></script>
+</body>
+</html>
