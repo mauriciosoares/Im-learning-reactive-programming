@@ -3,28 +3,25 @@ import $ from 'jquery';
 
 var input = document.getElementById('drag');
 
-var mouseUpStream = Rx.Observable.fromEvent(input, 'mouseup');
+var mouseUpStream = Rx.Observable.fromEvent(input, 'mouseup'); // #1
 var mouseDownStream = Rx.Observable.fromEvent(input, 'mousedown');
 var mouseMoveStream = Rx.Observable.fromEvent(document, 'mousemove');
 
-var mouseDragStream = mouseDownStream.flatMap((md) => {
+var mouseDragStream = mouseDownStream.flatMap((md) => { // #2
   var startX = md.offsetX, startY = md.offsetY;
 
-  return mouseMoveStream.map((mm) => {
+  return mouseMoveStream.map((mm) => { // #3
     mm.preventDefault();
 
-    console.log(mm.clientX);
-    console.log(mm.clientY);
-
-    return {
+    return { // #4
       left: mm.clientX - startX,
       top: mm.clientY - startY,
-      target: mm.target, // IMPORTANT CHANGE: the element you care about
+      target: mm.target,
     };
-  }).takeUntil(mouseUpStream);
+  }).takeUntil(mouseUpStream); // #5
 });
 
-mouseDragStream.subscribe((event) => {
+mouseDragStream.subscribe((event) => { // #6
   event.target.style.top = event.top + 'px';
   event.target.style.left = event.left + 'px';
 });
