@@ -13,15 +13,15 @@ var mouseDragStream = mouseDownStream.flatMap((md) => { // #2
   return mouseMoveStream.map((mm) => { // #3
     mm.preventDefault();
 
-    return { // #4
+    return {
       left: mm.clientX - startX,
       top: mm.clientY - startY,
       target: mm.target,
     };
-  }).takeUntil(mouseUpStream); // #5
+  }).takeUntil(mouseUpStream); // #4
 });
 
-mouseDragStream.subscribe((event) => { // #6
+mouseDragStream.subscribe((event) => { // #5
   event.target.style.top = event.top + 'px';
   event.target.style.left = event.left + 'px';
 });
