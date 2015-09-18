@@ -1,5 +1,4 @@
 import Rx from 'rx';
-import $ from 'jquery';
 
 var input = document.getElementById('drag');
 
