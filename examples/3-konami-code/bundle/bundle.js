@@ -7,10 +7,34 @@ var _rx = require('rx');
 
 var _rx2 = _interopRequireDefault(_rx);
 
-var keyUp = _rx2['default'].Observable.fromEvent(document, 'keyup');
+var codes = [38, // up
+38, // up
+40, // down
+40, // down
+37, // left
+39, // right
+37, // left
+39, // right
+66, // b
+65 // a
+];
 
-keyUp.subscribe(function (event) {
-	console.log(event);
+var konami = _rx2['default'].Observable.fromArray(codes);
+
+var keyUpStream = _rx2['default'].Observable.fromEvent(document, 'keyup');
+
+var konamiStream = keyUpStream.map(function (e) {
+		return e.keyCode;
+}) // get the key code
+.windowWithCount(10, 1) // get the last 10 keys
+.flatMap(function (x) {
+		return x.sequenceEqual(konami);
+}) // compare to known konami code sequence
+.filter(function (equal) {
+		return equal;
+}) // where we match
+.subscribe(function () {
+		console.log('konami');
 });
 
 },{"rx":3}],2:[function(require,module,exports){
