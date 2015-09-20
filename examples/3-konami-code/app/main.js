@@ -1,26 +1,29 @@
 import Rx from 'rx';
 
-const codes = [ // #1
-	38, // up
-	38, // up
-	40, // down
-	40, // down
-	37, // left
-	39, // right
-	37, // left
-	39, // right
-	66, // b
-	65  // a
+const CODES = [ // #1
+  38, // up
+  38, // up
+  40, // down
+  40, // down
+  37, // left
+  39, // right
+  37, // left
+  39, // right
+  66, // b
+  65  // a
 ];
 
-let konami = Rx.Observable.fromArray(codes); // #2
+let codeStream = Rx.Observable.from(CODES); // #2
 
 let keyUpStream = Rx.Observable.fromEvent(document, 'keyup'); // #3
 
-let konamiStream = keyUpStream.map((e) => e.keyCode) // #4 get the key code
-  .windowWithCount(10, 1) // #5 get the last 10 keys
-  .flatMap((x) => x.sequenceEqual(konami)) // #6  compare to known konami code sequence
-  .filter((equal) => equal) // where we match
-  .subscribe(() => {
-    console.log('konami');
-  });
+let konamiStream = keyUpStream
+  .map((event) => event.which) // #4
+  .windowWithCount(10, 1) // #5
+  .flatMap((stream) => stream.sequenceEqual(codeStream)) // #6
+  .filter((sequence) => sequence) // #7
+  .take(1); // #8
+
+konamiStream.subscribe((item) => {
+  console.log('Konami');
+});

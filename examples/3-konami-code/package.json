@@ -15,6 +15,6 @@
     "watchify": "^3.4.0"
   },
   "dependencies": {
-    "react": "^0.13.3"
+    "rx": "^3.1.2"
   }
 }
