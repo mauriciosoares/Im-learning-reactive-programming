@@ -17,22 +17,24 @@ const fatherMove = mouseMoveStream
 fatherMove.subscribe(setCoord.bind(father));
 
 
-let previousElement;
+let previousWidth = 0;
+
 for(let i = 1; i <= 10; i += 1) {
+  previousWidth += getElementWidth(father);
   let newDiv = document.createElement('div');
   newDiv.className = 'children';
   document.body.appendChild(newDiv);
 
-  const childMove = fatherMove.map((item) => {
-    return {
-      top: item.top,
-      left: parseInt(item.left, 10) + getElementWidth(father)
-    }
-  });
+  (function(left) {
+    const childMove = fatherMove.map((item) => {
+      return {
+        top: item.top,
+        left: parseInt(item.left, 10) + left
+      }
+    });
 
-
-
-  childMove
-    .delay(DELAY + (i * 100))
-    .subscribe(setCoord.bind(newDiv));
+    childMove
+      .delay(DELAY + (i * 50))
+      .subscribe(setCoord.bind(newDiv));
+  } (previousWidth))
 }

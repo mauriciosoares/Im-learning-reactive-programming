@@ -24,20 +24,28 @@ var fatherMove = mouseMoveStream.map(function (event) {
 });
 fatherMove.subscribe(setCoord.bind(father));
 
-var previousElement = undefined;
-for (var i = 1; i <= 10; i += 1) {
+var previousWidth = 0;
+
+var _loop = function (i) {
+  previousWidth += getElementWidth(father);
   var newDiv = document.createElement('div');
   newDiv.className = 'children';
   document.body.appendChild(newDiv);
 
-  var childMove = fatherMove.map(function (item) {
-    return {
-      top: item.top,
-      left: parseInt(item.left, 10) + getElementWidth(father)
-    };
-  });
+  (function (left) {
+    var childMove = fatherMove.map(function (item) {
+      return {
+        top: item.top,
+        left: parseInt(item.left, 10) + left
+      };
+    });
 
-  childMove.delay(DELAY + i * 100).subscribe(setCoord.bind(newDiv));
+    childMove.delay(DELAY + i * 50).subscribe(setCoord.bind(newDiv));
+  })(previousWidth);
+};
+
+for (var i = 1; i <= 10; i += 1) {
+  _loop(i);
 }
 
 },{"rx":3}],2:[function(require,module,exports){
