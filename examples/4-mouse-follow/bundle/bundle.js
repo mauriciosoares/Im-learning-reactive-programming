@@ -25,22 +25,20 @@ var fatherMove = mouseMoveStream.map(function (event) {
 fatherMove.subscribe(setCoord.bind(father));
 
 var previousElement = undefined;
-(function () {
-  for (var i = 1; i <= 10; i += 1) {
-    var newDiv = document.createElement('div');
-    newDiv.className = 'children';
-    document.body.appendChild(newDiv);
+for (var i = 1; i <= 10; i += 1) {
+  var newDiv = document.createElement('div');
+  newDiv.className = 'children';
+  document.body.appendChild(newDiv);
 
-    var childMove = fatherMove.map(function (item) {
-      return {
-        top: item.top,
-        left: parseInt(item.left, 10) + getElementWidth(father)
-      };
-    });
+  var childMove = fatherMove.map(function (item) {
+    return {
+      top: item.top,
+      left: parseInt(item.left, 10) + getElementWidth(father)
+    };
+  });
 
-    childMove.delay(DELAY + i * 100).subscribe(setCoord.bind(newDiv));
-  }
-})();
+  childMove.delay(DELAY + i * 100).subscribe(setCoord.bind(newDiv));
+}
 
 },{"rx":3}],2:[function(require,module,exports){
 // shim for using process in browser

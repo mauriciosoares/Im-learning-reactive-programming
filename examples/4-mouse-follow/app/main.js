@@ -18,23 +18,21 @@ fatherMove.subscribe(setCoord.bind(father));
 
 
 let previousElement;
-(() => {
-  for(let i = 1; i <= 10; i += 1) {
-    let newDiv = document.createElement('div');
-    newDiv.className = 'children';
-    document.body.appendChild(newDiv);
+for(let i = 1; i <= 10; i += 1) {
+  let newDiv = document.createElement('div');
+  newDiv.className = 'children';
+  document.body.appendChild(newDiv);
 
-    const childMove = fatherMove.map((item) => {
-      return {
-        top: item.top,
-        left: parseInt(item.left, 10) + getElementWidth(father)
-      }
-    });
-
+  const childMove = fatherMove.map((item) => {
+    return {
+      top: item.top,
+      left: parseInt(item.left, 10) + getElementWidth(father)
+    }
+  });
 
 
-    childMove
-      .delay(DELAY + (i * 100))
-      .subscribe(setCoord.bind(newDiv));
-  }
-} ())
+
+  childMove
+    .delay(DELAY + (i * 100))
+    .subscribe(setCoord.bind(newDiv));
+}
