@@ -2,12 +2,10 @@ import Rx from 'rx';
 
 function getElementWidth(el) { return parseInt(getComputedStyle(el).width, 10); }
 function setCoord(coords) {
-  this.style.top = coords.top + 'px';
-  this.style.left = coords.left + 'px';
+  this.style.transform = `translate(${coords.left}px, ${coords.top}px)`;
 }
 
 const DELAY = 100;
-
 const father = document.getElementById('father');
 const child = document.getElementById('child');
 

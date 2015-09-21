@@ -11,12 +11,10 @@ function getElementWidth(el) {
   return parseInt(getComputedStyle(el).width, 10);
 }
 function setCoord(coords) {
-  this.style.top = coords.top + 'px';
-  this.style.left = coords.left + 'px';
+  this.style.transform = 'translate(' + coords.left + 'px, ' + coords.top + 'px)';
 }
 
 var DELAY = 100;
-
 var father = document.getElementById('father');
 var child = document.getElementById('child');
 
