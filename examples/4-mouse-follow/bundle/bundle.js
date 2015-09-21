@@ -7,16 +7,35 @@ var _rx = require('rx');
 
 var _rx2 = _interopRequireDefault(_rx);
 
+function getElementWidth(el) {
+  return parseInt(getComputedStyle(el).width, 10);
+}
+function setCoord(coords) {
+  this.style.top = coords.top + 'px';
+  this.style.left = coords.left + 'px';
+}
+
+var DELAY = 100;
+
 var father = document.getElementById('father');
+var child = document.getElementById('child');
 
 var mouseMoveStream = _rx2['default'].Observable.fromEvent(document, 'mousemove');
 
-mouseMoveStream.map(function (event) {
+var fatherMove = mouseMoveStream.map(function (event) {
   return { top: event.clientY, left: event.clientX };
-}).subscribe(function (coords) {
-  father.style.top = coords.top + 'px';
-  father.style.left = coords.left + 'px';
 });
+
+var childMove = fatherMove.map(function (item) {
+  return {
+    top: item.top,
+    left: parseInt(item.left, 10) + getElementWidth(father)
+  };
+});
+
+fatherMove.subscribe(setCoord.bind(father));
+
+childMove.delay(DELAY).subscribe(setCoord.bind(child));
 
 },{"rx":3}],2:[function(require,module,exports){
 // shim for using process in browser
