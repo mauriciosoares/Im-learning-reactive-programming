@@ -14,10 +14,30 @@ Also I'll try to link the [documentation](https://github.com/Reactive-Extensions
 
 I'll try to explain here what I think reactive programming is, as I'm learning it...
 
-*This was updated at September 14, 2015*
+*This was updated at October 3, 2015*
 
 In short words, reactive programming is a way of programming using streams...
 
-A stream may be defined as an Array of "things", and these things can be DOM events, ajax calls, and even other streams!
+And what the hell is a stream? Streams are events that happens though time, and you trigger a callback when it happens.
 
-Yeah, that's it for now... I'll improve this. :)
+It seems like a Promise, but different from promises, it's value can change over time. So you can think of it as a dynamic array that keeps incrementing.
+
+You can illustrate streams using [marble diagrams](rxmarbles.com), like this:
+
+--C---------C---->
+
+Imagine that the line "-----" is the time, the ">" is the end of the stream, and the "C" may be anything, C can stand for clicks on a button.
+
+So whenever I click on a button, a callback gets triggered with this event.
+
+You can merge streams! So in case you want to merge 2 streams of clicks, it may become something like this:
+
+--C---------C---->
+      merge
+------c--------c->
+      result
+--C---c-----C--c->
+
+The third one (result) is a mix of all the click events that happened, it may seem simple using just a "clicks" example, but this can get as powerful as hell!
+
+Yeah, that's it for now. :)
